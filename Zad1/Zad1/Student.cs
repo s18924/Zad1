@@ -38,7 +38,18 @@ using System.Collections.Generic;
     public class Studia
     {
         public string name  { get; set; }
-        public string mode { get; set; }
+        [XmlAttribute("name")]
 
+        public string name2  { get; set; }
+        public bool ShouldSerializename2() {
+            return string.IsNullOrEmpty(name);
+        }
+        public string mode { get; set; }
+        [XmlAttribute("numberOfStudents")]
+
+        public int numberOfStudents { get; set; }
+        public bool ShouldSerializenumberOfStudents() {
+            return numberOfStudents>0;
+        }
     }
 }

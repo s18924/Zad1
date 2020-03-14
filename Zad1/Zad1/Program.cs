@@ -58,11 +58,57 @@ using System.IO;
                 Console.WriteLine();
             }
 
-            Console.WriteLine(par1);
+            /*HashSet<string> hs = new HashSet<string>();
+            Dictionary<string, int> hash = new Dictionary<string, int>();
+
+            for (int i = 0; i < lines.Length; i++)
+            {
+                var line = lines[i].Split(",");
+                hs.Add(line[2]);
+            }
+
+            foreach (var i in hs)
+            {
+                Console.WriteLine(i);
+            }*/
+            
+            
+            //HashSet<string> hs = new HashSet<string>();
+            
+            
+            
+            
+            
+            
+            Dictionary<string, int> hash = new Dictionary<string, int>();
+
+            for (int i = 0; i < lines.Length; i++)
+            {
+                var line = lines[i].Split(",");
+
+                if (hash.ContainsKey(line[2]))
+                    hash[line[2]]++;
+                
+                if(!hash.ContainsKey(line[2]))
+                     hash.Add(line[2],1);
+                
+            }
+
+            List<Studia> l = new List<Studia>();
+
+            foreach (var i in hash)
+            {
+                Console.WriteLine(i.Key +  " " + i.Value);
+                l.Add(new Studia()
+                {
+                    name2 = i.Key,
+                    numberOfStudents = i.Value
+                });
+            }
+
+
             FileStream writer = new FileStream(@"data.xml", FileMode.Create);   
-            //?
-           // var attr = new XmlRootAttribute("uczelnia");
-       
+     
            // XmlSerializer serializer = new XmlSerializer(typeof(Uczelnia), new XmlRootAttribute("ssss"));
             XmlSerializer serializer = new XmlSerializer(typeof(Uczelnia));
            // var xns = new XmlSerializerNamespaces();
@@ -71,7 +117,8 @@ using System.IO;
             {
                 createdAt = DateTime.Today.ToShortDateString(),
                 Author = "Szymek",
-                studenci = list
+                studenci = list,
+                activeStudies = l
                 
             };
             serializer.Serialize(writer, u);
@@ -96,4 +143,8 @@ using System.IO;
      public String Author { get; set; }
 
      public List<Student> studenci { get; set; }
+
+     public List<Studia> activeStudies { get; set; }
+
+    // public Dictionary<string,int> activeStudies { get; set; }
  }
