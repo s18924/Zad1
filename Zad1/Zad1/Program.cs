@@ -1,10 +1,12 @@
 ﻿﻿using System;
 using System.Collections.Generic;
 using System.IO;
+ using System.Security.Principal;
  using System.Xml;
  using System.Xml.Serialization;
+ using Cwiczenia_II;
 
-namespace Cwiczenia_II
+ namespace Cwiczenia_II
 {
     class Program
     {
@@ -35,18 +37,19 @@ namespace Cwiczenia_II
                     Console.Write(line[j]);
                     Studia s = new Studia
                     {
-                        name = line[6],
-                        mode = line[7]
+                        name = line[2],
+                        mode = line[3]
                     };
 
                     list.Add(new Student
                     {
                         Imie = line[0],
                         Nazwisko = line[1],
-                        Data_urodzenia = line[2],
-                        Email = line[3],
-                        Imie_matki = line[4],
-                        Imie_Ojca = line[5],
+                        Data_urodzenia = line[5],
+                        Email = line[6],
+                        Imie_matki = line[7],
+                        Imie_Ojca = line[8],
+                        eska = line[4],
                         Studia = s
                     }) ;
                     //list.Add(new Student(line[0], line[1], line[2], line[3], line[4], line[5]));
@@ -59,14 +62,19 @@ namespace Cwiczenia_II
             FileStream writer = new FileStream(@"data.xml", FileMode.Create);   
             //?
            // var attr = new XmlRootAttribute("uczelnia");
-           Studia ss = new Studia()
-           {
-               mode = "1112",
-               name = "wewe"
-           };
-            XmlSerializer serializer = new XmlSerializer(typeof(List<Student>), new XmlRootAttribute("ssss"));
-
-            serializer.Serialize(writer, list);
+       
+           // XmlSerializer serializer = new XmlSerializer(typeof(Uczelnia), new XmlRootAttribute("ssss"));
+            XmlSerializer serializer = new XmlSerializer(typeof(Uczelnia));
+           // var xns = new XmlSerializerNamespaces();
+          //  xns.Add(string.Empty, string.Empty);
+            Uczelnia u = new Uczelnia()
+            {
+                createdAt = DateTime.Today.ToShortDateString(),
+                Author = "Szymek",
+                studenci = list
+                
+            };
+            serializer.Serialize(writer, u);
         }
 
 
@@ -79,3 +87,13 @@ namespace Cwiczenia_II
     
      serializer.Serialize(writer, list);*/
 }
+
+ public class Uczelnia
+ {
+     [XmlAttribute("createdAt")]
+     public String createdAt { get; set; }
+     [XmlAttribute("author")]
+     public String Author { get; set; }
+
+     public List<Student> studenci { get; set; }
+ }

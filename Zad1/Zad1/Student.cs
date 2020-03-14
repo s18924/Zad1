@@ -1,17 +1,24 @@
 ﻿﻿using System;
 using System.Collections.Generic;
-using System.Text;
+ using System.Security.Principal;
+ using System.Text;
+ using System.Xml.Serialization;
 
-namespace Cwiczenia_II
+ namespace Cwiczenia_II
 {
    public class Student
     {
+      //
+      //
         public string Imie { get; set; }
         public string Nazwisko { get; set; }
         public string Data_urodzenia { get; set; }
         public string Email { get; set; }
         public string Imie_matki { get; set; }
         public string Imie_Ojca { get; set; }
+        [XmlAttribute("indexNumber")]
+
+        public string eska { get; set; }
 
         public Studia Studia { get; set; }
 
