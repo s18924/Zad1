@@ -1,6 +1,7 @@
 ﻿﻿using System;
 using System.Collections.Generic;
 using System.IO;
+ using System.Reflection.Metadata.Ecma335;
  using System.Security.Principal;
  using System.Xml;
  using System.Xml.Serialization;
@@ -28,36 +29,71 @@ using System.IO;
 
             var list = new List<Student>();
 
-            for (int i = 0; i < lines.Length; i++)
+            bool czyZapisac = true;
+            using (StreamWriter fw = new StreamWriter("log.txt"))
             {
-                var line = lines[i].Split(",");
 
-                for (int j = 0; j < line.Length; j++)
+
+            
+                for (int i = 0; i < lines.Length; i++)
                 {
-                    Console.Write(line[j]);
-                    Studia s = new Studia
-                    {
-                        name = line[2],
-                        mode = line[3]
-                    };
+                    var line = lines[i].Split(",");
+                    czyZapisac = true;
 
-                    list.Add(new Student
+                    
+                    foreach (var z in line)
                     {
-                        Imie = line[0],
-                        Nazwisko = line[1],
-                        Data_urodzenia = line[5],
-                        Email = line[6],
-                        Imie_matki = line[7],
-                        Imie_Ojca = line[8],
-                        eska = line[4],
-                        Studia = s
-                    }) ;
-                    //list.Add(new Student(line[0], line[1], line[2], line[3], line[4], line[5]));
+                        if (String.IsNullOrEmpty(z))
+                        {
+                            fw.Write("Niekompletny student: " + lines[i] + "\n");
+                            czyZapisac = false;
+                            break;
+                        }
+                    }
 
+                    if (czyZapisac)
+                    {
+                        foreach (var z in list)
+                        {
+                            if (z.eska == line[4])
+                            {
+                                fw.Write("Duplikat studenta: " + lines[i] + "\n");
+                                czyZapisac = false;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (czyZapisac)
+                    {
+                       // for (int j = 0; j < line.Length; j++)
+                       // {
+                         //   Console.Write(line[j]);
+                            Studia s = new Studia
+                            {
+                                name = line[2],
+                                mode = line[3]
+                            };
+
+                            list.Add(new Student
+                            {
+                                Imie = line[0],
+                                Nazwisko = line[1],
+                                Data_urodzenia = line[5],
+                                Email = line[6],
+                                Imie_matki = line[7],
+                                Imie_Ojca = line[8],
+                                eska = line[4],
+                                Studia = s
+                            });
+                            //list.Add(new Student(line[0], line[1], line[2], line[3], line[4], line[5]));
+
+                       // }
+                    }
+
+                    Console.WriteLine();
                 }
-                Console.WriteLine();
             }
-
             /*HashSet<string> hs = new HashSet<string>();
             Dictionary<string, int> hash = new Dictionary<string, int>();
 
@@ -122,6 +158,7 @@ using System.IO;
                 
             };
             serializer.Serialize(writer, u);
+            writer.Dispose();
         }
 
 
