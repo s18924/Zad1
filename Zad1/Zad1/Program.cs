@@ -13,13 +13,27 @@ using System.IO;
     {
         static void Main(string[] args)
         {
+            var list = new List<Student>();
+            using (StreamWriter fw = new StreamWriter("log.txt"))
+            {
+
+           
             Console.WriteLine("Podaj lokalizację pliku!");
             string par1 = Console.ReadLine();
 
-            Console.WriteLine("Podaj plik wyjściowy!");
+            var lokalizacja = (String.IsNullOrEmpty(par1) ? "dane.csv" : par1);
+
+            if (!File.Exists(lokalizacja))
+            {
+                Console.Error.Write("File not found!");
+                fw.Write("File not found! : " + lokalizacja + " exiting program!");
+                fw.Dispose();
+                Environment.Exit(1);
+            }
+
+                Console.WriteLine("Podaj plik wyjściowy!");
             string par2 = Console.ReadLine();
 
-            var lokalizacja = (String.IsNullOrEmpty(par1) ? "dane.csv" : par1);
             var output = (String.IsNullOrEmpty(par2) ? "result.xml" : par2);
 
             Console.WriteLine(lokalizacja);
@@ -27,14 +41,11 @@ using System.IO;
 
             var lines = File.ReadAllLines(lokalizacja); //tablica stringow jeden to jedna linijka
 
-            var list = new List<Student>();
 
             bool czyZapisac = true;
-            using (StreamWriter fw = new StreamWriter("log.txt"))
-            {
-
-
             
+
+           
                 for (int i = 0; i < lines.Length; i++)
                 {
                     var line = lines[i].Split(",");
@@ -83,56 +94,16 @@ using System.IO;
                                 eska = line[4],
                                 Studia = s
                             });
-                            //list.Add(new Student(line[0], line[1], line[2], line[3], line[4], line[5]));
-
-                       // }
+       
                     }
 
-                  //  Console.WriteLine();
                 }
             }
-            /*HashSet<string> hs = new HashSet<string>();
-            Dictionary<string, int> hash = new Dictionary<string, int>();
 
-            for (int i = 0; i < lines.Length; i++)
-            {
-                var line = lines[i].Split(",");
-                hs.Add(line[2]);
-            }
-
-            foreach (var i in hs)
-            {
-                Console.WriteLine(i);
-            }*/
-            
-            
-            //HashSet<string> hs = new HashSet<string>();
-            
-            
-            
-            
-            
-            
-            /*Dictionary<string, int> hash = new Dictionary<string, int>();
-
-            for (int i = 0; i < lines.Length; i++)
-            {
-                var line = lines[i].Split(",");
-
-                if (hash.ContainsKey(line[2]))
-                    hash[line[2]]++;
-                
-                if(!hash.ContainsKey(line[2]))
-                     hash.Add(line[2],1);
-                
-            }*/
-            
             Dictionary<string, int> hash = new Dictionary<string, int>();
 
             for (int i = 0; i < list.Count; i++)
             {
-                var line = lines[i].Split(",");
-
                 if (hash.ContainsKey(list[i].Studia.name))
                     hash[list[i].Studia.name]++;
                 
@@ -156,7 +127,6 @@ using System.IO;
 
             FileStream writer = new FileStream(@"data.xml", FileMode.Create);   
      
-           // XmlSerializer serializer = new XmlSerializer(typeof(Uczelnia), new XmlRootAttribute("ssss"));
             XmlSerializer serializer = new XmlSerializer(typeof(Uczelnia));
            // var xns = new XmlSerializerNamespaces();
           //  xns.Add(string.Empty, string.Empty);
@@ -175,12 +145,6 @@ using System.IO;
 
     }
 
-  /*  FileStream writer = new FileStream(@"data.xml", FileMode.Create);
-    XmlSerializer serializer = new XmlSerializer(typeof(List<Student>), new XmlRootAttribute("uczelnia"));
-    var list = new List<Student>();
-    list.Add(new Student { Imie = "Jan", Nazwisko = "Kowalski" });
-    
-     serializer.Serialize(writer, list);*/
 }
 
  public class Uczelnia
@@ -194,5 +158,4 @@ using System.IO;
 
      public List<Studia> activeStudies { get; set; }
 
-    // public Dictionary<string,int> activeStudies { get; set; }
  }
