@@ -66,10 +66,7 @@ using System.IO;
 
                     if (czyZapisac)
                     {
-                       // for (int j = 0; j < line.Length; j++)
-                       // {
-                         //   Console.Write(line[j]);
-                            Studia s = new Studia
+                        Studia s = new Studia
                             {
                                 name = line[2],
                                 mode = line[3]
@@ -91,7 +88,7 @@ using System.IO;
                        // }
                     }
 
-                    Console.WriteLine();
+                  //  Console.WriteLine();
                 }
             }
             /*HashSet<string> hs = new HashSet<string>();
@@ -116,7 +113,7 @@ using System.IO;
             
             
             
-            Dictionary<string, int> hash = new Dictionary<string, int>();
+            /*Dictionary<string, int> hash = new Dictionary<string, int>();
 
             for (int i = 0; i < lines.Length; i++)
             {
@@ -127,6 +124,20 @@ using System.IO;
                 
                 if(!hash.ContainsKey(line[2]))
                      hash.Add(line[2],1);
+                
+            }*/
+            
+            Dictionary<string, int> hash = new Dictionary<string, int>();
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                var line = lines[i].Split(",");
+
+                if (hash.ContainsKey(list[i].Studia.name))
+                    hash[list[i].Studia.name]++;
+                
+                if (!hash.ContainsKey(list[i].Studia.name))
+                    hash.Add(list[i].Studia.name,1);
                 
             }
 

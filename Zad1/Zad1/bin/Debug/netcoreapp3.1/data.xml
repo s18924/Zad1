@@ -2368,23 +2368,11 @@
   </studenci>
   <activeStudies>
     <Studia name="Informatyka dzienne" numberOfStudents="106" />
-    <Studia name="Informatyka magisterskie 4 sem" numberOfStudents="1" />
-    <Studia name="Informatyka doktoranckie" numberOfStudents="2" />
-    <Studia name="Sztuka Nowych Mediów dzienne" numberOfStudents="68" />
-    <Studia name="Sztuka Nowych Mediów uzupełniające magisterskie" numberOfStudents="15" />
-    <Studia name="Sztuka Nowych Mediów zaoczne" numberOfStudents="5" />
-    <Studia name="Sztuka Nowych Mediów zaoczne 6 sem." numberOfStudents="2" />
-    <Studia name="Informatyka dzienne po angielsku" numberOfStudents="30" />
-    <Studia name="Informatyka magisterskie 3 sem" numberOfStudents="33" />
-    <Studia name="Informatyka zaoczne" numberOfStudents="16" />
+    <Studia name="Sztuka Nowych Mediów dzienne" numberOfStudents="64" />
+    <Studia name="Sztuka Nowych Mediów zaoczne" numberOfStudents="1" />
+    <Studia name="Informatyka dzienne po angielsku" numberOfStudents="23" />
     <Studia name="Zarządzanie informacją dzienne (kierunek Zarządzanie)" numberOfStudents="1" />
-    <Studia name="Informatyka internetowe" numberOfStudents="8" />
-    <Studia name="Informatyka magisterskie uzupełniające zaoczne" numberOfStudents="3" />
-    <Studia name="Informatyka jednolite magisterskie" numberOfStudents="3" />
-    <Studia name="Informatyka jednolite magisterskie po angielsku" numberOfStudents="2" />
-    <Studia name="Informatyka Społeczna" numberOfStudents="2" />
     <Studia name="Informatyka internetowe magisterskie" numberOfStudents="1" />
-    <Studia name="Informatyka wieczorowe" numberOfStudents="1" />
-    <Studia name="MBA dla branży IT" numberOfStudents="1" />
+    <Studia name="Informatyka zaoczne" numberOfStudents="1" />
   </activeStudies>
 </Uczelnia>
